@@ -1,0 +1,10 @@
+<Context>
+    <Resource name="jdbc/GestionEcoleDS"
+            auth="Container"
+            type="javax.sql.DataSource"
+            driverClassName="com.mysql.cj.jdbc.Driver"
+            url="jdbc:mysql://localhost:3306/gestion_ecole?useSSL=false"
+            username="root"
+            password="test123"/>
+
+</Context>
