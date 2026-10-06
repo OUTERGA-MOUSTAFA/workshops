@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Gestion École</title>
+</head>
+
+<body>
+
+    <h1>Liste des Apprenants (Consommation de l'API REST)</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Email</th>
+                <th>Filière</th>
+            </tr>
+        </thead>
+        <tbody id="table-body">
+            <!-- Les données injectées par JS s'afficheront ici -->
+        </tbody>
+    </table>
+    <script>
+        // Connexion du Frontend au Backend via l'API REST
+        fetch('http://localhost:8080/workshop-connection-db/api/apprenants')
+            .then(response => response.json()) // Récupération du JSON renvoyé par Jersey
+            .then(data => {
+                const liste = document.getElementById('liste');
+                data.forEach(apprenant => {
+                    let li = document.createElement('li');
+                    li.textContent = `${apprenant.prenom} ${apprenant.nom} - ${apprenant.filiere}`;
+                    liste.appendChild(li);
+                });
+            })
+            .catch(error => console.error('Erreur de connexion à l’API:', error));
+    </script>
+</body>
+
+</html>

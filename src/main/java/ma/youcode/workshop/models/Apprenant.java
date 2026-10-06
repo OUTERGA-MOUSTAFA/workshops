@@ -7,6 +7,9 @@ public class Apprenant {
     private String prenom;
     private String email;
     private String filiere;
+
+    // 1. Constructeur vide (OBLIGATOIRE pour Jersey / JSON-B lors des requêtes POST)
+    public Apprenant(){}
     public Apprenant(Integer id, String nom, String prenom, String email, String filiere) {
         this.id = id;
         this.nom = nom;

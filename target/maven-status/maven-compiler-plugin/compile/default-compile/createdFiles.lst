@@ -1,0 +1,6 @@
+ma\youcode\workshop\resources\RestApplication.class
+ma\youcode\workshop\dao\ApprenantDao.class
+ma\youcode\workshop\resources\ApprenantsResource.class
+ma\youcode\workshop\models\Apprenant.class
+ma\youcode\workshop\controllers\ApprenantServlet.class
+ma\youcode\workshop\util\ConnectionFactory.class

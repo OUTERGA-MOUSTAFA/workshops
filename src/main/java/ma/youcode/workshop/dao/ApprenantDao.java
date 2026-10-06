@@ -13,28 +13,27 @@ import ma.youcode.workshop.util.ConnectionFactory;
 
 public class ApprenantDao {
 
-
-    public List<Apprenant> findAll(){
-        List<Apprenant> list= new ArrayList<>();
-        String sql="select * from etudiant";
-        try (Connection cn=ConnectionFactory.getConnection(); 
-        Statement stmt=cn.createStatement();
-        ResultSet rs=stmt.executeQuery(sql)) {
-            while(rs.next()){
-                list.add(new Apprenant(rs.getInt("id"), rs.getString("nom"), rs.getString("prenom"), rs.getString("email"), rs.getString("filiere")));
+    public List<Apprenant> findAll() {
+        List<Apprenant> list = new ArrayList<>();
+        String sql = "select * from etudiant";
+        try (Connection cn = ConnectionFactory.getConnection();
+                Statement stmt = cn.createStatement();
+                ResultSet rs = stmt.executeQuery(sql)) {
+            while (rs.next()) {
+                list.add(new Apprenant(rs.getInt("id"), rs.getString("nom"), rs.getString("prenom"),
+                        rs.getString("email"), rs.getString("filiere")));
             }
-            
+
         } catch (SQLException e) {
-            
-        
+
         }
         return list;
     }
 
-    public void save(Apprenant apprenant){
-        String sql="insert into etudiant (nom, prenom, email, filiere) values (?, ?, ?, ?)";
-        try (Connection cn=ConnectionFactory.getConnection();
-        PreparedStatement ps=cn.prepareStatement(sql)) {
+    public void save(Apprenant apprenant) {
+        String sql = "insert into etudiant (nom, prenom, email, filiere) values (?, ?, ?, ?)";
+        try (Connection cn = ConnectionFactory.getConnection();
+                PreparedStatement ps = cn.prepareStatement(sql)) {
             ps.setString(1, apprenant.getNom());
             ps.setString(2, apprenant.getPrenom());
             ps.setString(3, apprenant.getEmail());
@@ -43,6 +42,28 @@ public class ApprenantDao {
         } catch (SQLException e) {
             throw new RuntimeException("Erreur lors de l'ajout de l'apprenant", e);
         }
+    }
+
+    public Apprenant findById(int id) {
+        Apprenant apprenant = null;
+        String sql = "SELECT * FROM etudiant WHERE id = ?";
+        try (Connection conn = ConnectionFactory.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, id);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    apprenant = new Apprenant();
+                    apprenant.setId(rs.getInt("id"));
+                    apprenant.setNom(rs.getString("nom"));
+                    apprenant.setPrenom(rs.getString("prenom"));
+                    apprenant.setEmail(rs.getString("email"));
+                    apprenant.setFiliere(rs.getString("filiere"));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return apprenant;
     }
 
 }
